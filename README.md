@@ -1,6 +1,10 @@
 # healthy_care
 
-A new Flutter project.
+Team ID: CSD-094
+
+Nama Anggota:
+1. Ravena - P299V4306
+2. Wanda Afrilia Ayu - P354V4387
 
 ## Getting Started
 
