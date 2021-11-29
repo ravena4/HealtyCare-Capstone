@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:healthy_care/splashscreen_view.dart';
-import 'input_page.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:healthy_care/input_page.dart';
+import 'package:healthy_care/service/notification_service.dart';
 
-void main() => runApp(healthy_care());
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final NotificationService notificationService = NotificationService();
+  await notificationService.initNotification(flutterLocalNotificationsPlugin);
+  runApp(HealtyCare());
+}
 
-class healthy_care extends StatelessWidget {
-const healthy_care({ Key key }) : super(key: key);
+class HealtyCare extends StatelessWidget {
+const HealtyCare({ Key key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +22,7 @@ const healthy_care({ Key key }) : super(key: key);
         primaryColor: Color(0xFF0A0E21),
         scaffoldBackgroundColor: Color(0xFF0A0E21),
       ),
-      home: SplashScreenPage(),
+      home: InputPage(),
     );
   }
 }

@@ -35,9 +35,9 @@ class ResultsPage extends StatelessWidget {
           ),
           Expanded(
             flex: 5,
-            child: boxContainer(
+            child: BoxContainer(
               color: kActiveCardColour,
-              CardChild: Column(
+              cardChild: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[

@@ -40,7 +40,7 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: boxContainer(
+                  child: BoxContainer(
                     onPress: () {
                       setState(() {
                         selectedGender = Gender.male;
@@ -49,14 +49,14 @@ class _InputPageState extends State<InputPage> {
                     color: selectedGender == Gender.male
                         ? kActiveCardColour
                         : kInactiveCardColour,
-                    CardChild: iconContents(
+                    cardChild: IconContents(
                       icon: FontAwesomeIcons.mars,
                       character: 'MALE',
                     ),
                   ),
                 ),
                 Expanded(
-                  child: boxContainer(
+                  child: BoxContainer(
                     onPress: () {
                       setState(() {
                         selectedGender = Gender.female;
@@ -65,7 +65,7 @@ class _InputPageState extends State<InputPage> {
                     color: selectedGender == Gender.female
                         ? kActiveCardColour
                         : kInactiveCardColour,
-                    CardChild: iconContents(
+                    cardChild: IconContents(
                       icon: FontAwesomeIcons.venus,
                       character: 'FEMALE',
                     ),
@@ -75,9 +75,9 @@ class _InputPageState extends State<InputPage> {
             ),
           ),
           Expanded(
-            child: boxContainer(
+            child: BoxContainer(
               color: kActiveCardColour,
-              CardChild: Column(
+              cardChild: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
@@ -129,9 +129,9 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: boxContainer(
+                  child: BoxContainer(
                     color: kActiveCardColour,
-                    CardChild: Column(
+                    cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
@@ -170,9 +170,9 @@ class _InputPageState extends State<InputPage> {
                   ),
                 ),
                 Expanded(
-                  child: boxContainer(
+                  child: BoxContainer(
                     color: kActiveCardColour,
-                    CardChild: Column(
+                    cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
