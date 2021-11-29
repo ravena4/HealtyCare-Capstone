@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-class boxContainer extends StatelessWidget {
+class BoxContainer extends StatelessWidget {
   final Color color;
-  final Widget CardChild;
+  final Widget cardChild;
   final Function onPress;
 
-  boxContainer({@required this.color, this.CardChild, this.onPress});
+  BoxContainer({@required this.color, this.cardChild, this.onPress});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPress,
       child: Container(
-        child: CardChild,
+        child: cardChild,
         margin: EdgeInsets.all(15.0),
         decoration: BoxDecoration(
           color: color,
