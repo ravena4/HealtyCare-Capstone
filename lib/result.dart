@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:healthy_care/hasil_BMI.dart';
+import 'package:healthy_care/rekomen.dart';
 import 'constants.dart';
 import 'reusable_card.dart';
 import 'bottom_button.dart';
@@ -24,16 +26,6 @@ class ResultsPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Expanded(
-            child: Container(
-              padding: EdgeInsets.all(15.0),
-              alignment: Alignment.bottomLeft,
-              child: Text(
-                'Your Result',
-                style: kTitleTextStyle,
-              ),
-            ),
-          ),
-          Expanded(
             flex: 5,
             child: boxContainer(
               color: kActiveCardColour,
@@ -41,6 +33,10 @@ class ResultsPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
+                   Text(
+                'Your Result',
+                style: kTitleTextStyle,
+              ),
                   Text(
                     resultText.toUpperCase(),
                     style: kResultTextStyle,
@@ -63,9 +59,23 @@ class ResultsPage extends StatelessWidget {
             onTap: () {
               Navigator.pop(context);
             },
-          )
+          ),
+          BottomButton(
+            buttonTitle: 'HASIL BMI',
+            onTap: () {
+              Navigator.push(context,
+              MaterialPageRoute(builder: (context) => hasil_BMI()),
+              );
+               },
+          ),
+          BottomButton( buttonTitle: "REKOMENDASI",
+          onTap: () {
+            Navigator.push(context,
+            MaterialPageRoute(builder: (context) => rekomen() ),
+            );
+          },)
         ],
       ),
     );
   }
-}
+  }
