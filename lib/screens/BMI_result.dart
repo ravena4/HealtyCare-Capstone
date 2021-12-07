@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:healthy_care/rekomen.dart';
+import 'package:healthy_care/recommendation.dart';
 
 class hasil_BMI extends StatelessWidget {
   final List makanan = [

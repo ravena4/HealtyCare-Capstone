@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:healthy_care/hasil_BMI.dart';
-import 'package:healthy_care/rekomen.dart';
-import 'constants.dart';
-import 'reusable_card.dart';
-import 'bottom_button.dart';
+import 'package:healthy_care/screens/BMI_result.dart';
+import 'package:healthy_care/recommendation.dart';
+import '../constants.dart';
+import '../reusable_card.dart';
+import '../bottom_button.dart';
 
 class ResultsPage extends StatelessWidget {
   ResultsPage(
