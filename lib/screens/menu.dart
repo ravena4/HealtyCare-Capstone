@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:healthy_care/screens/input_page.dart';
+import 'package:healthy_care/screens/foods/launch_screen.dart';
+import 'package:healthy_care/screens/home/input_page.dart';
 
 class BottomNavPage extends StatefulWidget {
   @override
@@ -19,7 +20,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
   Widget build(BuildContext context) {
     final _listPage = <Widget>[
       InputPage(),
-      Text('Halaman Makanan'),
+      LaunchScreen(),
       Text('Halaman Favorite'),
       Text('Halaman Pengaturan'),
     ];
