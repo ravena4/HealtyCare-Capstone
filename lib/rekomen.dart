@@ -1,75 +1,34 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:healthy_care/detail_page.dart';
-import 'package:healthy_care/makanan.dart';
-import 'package:healthy_care/platform_widget.dart';
-import 'package:healthy_care/styles.dart';
 
 class rekomen extends StatelessWidget {
+ final List rekom = [
+    "1. Hindari stres",
+    "2. Bijak dalam memilih makanan",
+    "3. Ambil waktu untuk berolahraga setiap hari",
+    "4. Kurangi konsumsi gula mulai hari ini",
+    "5. Banyak minum air mineral",
+    "6. Tidur yang cukup", 
+    "7. Perbanyak makan sayur"
+  ];
+ 
   @override 
-  Widget _buildList(BuildContext context) {
-    return FutureBuilder<String>(
-      future: DefaultAssetBundle.of(context).loadString('assets/makanan.json'),
-      builder: (context, snapshot) {
-        final List<Makanan> makanan = parseMakanan(snapshot.data);
-        return ListView.builder(
-          itemCount: makanan.length,
-          itemBuilder: (context, index) {
-            return _buildMakananItem(context, makanan[index]);
-          },
-        );
-      },
-    );
-}
-  Widget _buildMakananItem(BuildContext context, Makanan makanan) {
-    return Material(
-      color: Colors.black,
-      child: ListTile(
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-        leading: Hero(
-          tag: makanan.urlToImage,
-          child: Image.network(
-            makanan.urlToImage,
-            width: 100,
-          ),
-        ),
-        title: Text(
-          makanan.title,
-        ),
-        subtitle: Text(makanan.author),
-        onTap: () {
-          Navigator.push(context,
-            MaterialPageRoute(builder: (context) => MakananDetailPage() ));
-        },
-      ),
-    );
-  }
-
-  Widget _buildAndroid(BuildContext context) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Rekomendasi'),
+        title: Text("REKOMENDASI"),
       ),
-      body: _buildList(context),
-    );
-  }
-
-  Widget _buildIos(BuildContext context) {
-    return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Text('Rekomendasi'),
-        transitionBetweenRoutes: false,
+        body: ListView.builder(
+        itemBuilder: (context, index) {
+          return Card(
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Text(rekom[index], style: TextStyle(fontSize: 30)),
+            ),
+          );
+        },
+        itemCount: rekom.length,
       ),
-      child: _buildList(context),
     );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return PlatformWidget(
-      androidBuilder: _buildAndroid,
-      iosBuilder: _buildIos,
-    );
-  }
-}
+  } 
+}  
