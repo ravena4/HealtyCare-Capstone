@@ -31,7 +31,7 @@ class HttpHelper{
     'large': '500x500'
   };
 
-  final String _apiKey = '?apiKey=781f38a2eb8e4fb899775426a943ad0b';
+  final String _apiKey = '?apiKey=e2f5880db61a484da695f12bdd4dc463';
   // for ingredients only
   final String _urlImages = 'https://spoonacular.com/cdn/ingredients_';
   final String _urlBaseRecipeSearch = 'https://api.spoonacular.com/recipes/complexSearch';
