@@ -19,6 +19,8 @@ dependencies:
  
   cupertino_icons: ^0.1.3
   font_awesome_flutter: ^8.8.1
+  webview_flutter: ^2.0.3
+  google_fonts: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -32,4 +34,5 @@ flutter:
 
   assets:
     - assets/loogo.jpg
+    - assets/makanan.json
  
