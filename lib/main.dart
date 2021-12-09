@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:healthy_care/screens/input_page.dart';
+import 'package:healthy_care/screens/home/input_page.dart';
 import 'package:healthy_care/screens/menu.dart';
 import 'package:healthy_care/service/notification_service.dart';
 
