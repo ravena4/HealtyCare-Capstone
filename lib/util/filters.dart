@@ -25,6 +25,7 @@ List<Map<String,dynamic>> filters = [
   {'value': 'salad', 'title': 'Salad', 'category': 'Dish Types'},
 ];
 
+
 List<String> cuisines = [
   "African",
   'American',
