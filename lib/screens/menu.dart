@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:healthy_care/screens/foods/launch_screen.dart';
 import 'package:healthy_care/screens/home/input_page.dart';
+import 'package:healthy_care/setting.dart';
 
 class BottomNavPage extends StatefulWidget {
   @override
@@ -22,7 +23,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
       InputPage(),
       LaunchScreen(),
       Text('Halaman Favorite'),
-      Text('Halaman Pengaturan'),
+      SettingScreen(),
     ];
 
     final _bottomNavBarItems = <BottomNavigationBarItem>[

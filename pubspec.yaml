@@ -25,6 +25,9 @@ dependencies:
   flutter_easyrefresh: ^2.2.1
   auto_size_text: ^3.0.0
   html: ^0.15.0
+  intl: ^0.16.0
+  flutter_ringtone_player:
+  flushbar: ^1.9.1
 
 dev_dependencies:
   flutter_test:
