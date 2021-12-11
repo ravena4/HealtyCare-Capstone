@@ -74,7 +74,6 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
         ));
   }
 
-
   Widget noInternet(BuildContext context){
     return Container(
         child: Padding(
@@ -101,10 +100,8 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
   }
 
   Widget mainWidget(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
     return EasyRefresh.custom(
-      header: BezierCircleHeader(),
-      footer: BezierBounceFooter(backgroundColor: Colors.pink),
+      footer: BallPulseFooter(color: Colors.pink),
       slivers: [
         SliverToBoxAdapter(
           child: StreamBuilder(
@@ -131,22 +128,20 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       child: Column(
                         children: [
-                          // recipe image
                           FadeInImage.memoryNetwork(
                             placeholder: kTransparentImage,
                             image: (snapshot.data[index].image) == null ?
                             kTransparentImage : snapshot.data[index].image,
                             fit: BoxFit.fill,
                           ),
-                          Align(
-                              alignment: Alignment.bottomCenter,
+                          Center(
                               child: Padding(
                                 padding: EdgeInsets.only(top: 5,left:5,right: 5),
                                 child: AutoSizeText(
                                   snapshot.data[index].title,
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                   maxLines: 2,
-                                  maxFontSize: 14,
+                                  maxFontSize: 12,
                                 ),
                               )
                           )
@@ -165,7 +160,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
               return Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
-                    padding: EdgeInsets.only(top: screenSize.height/3),
+                    padding: EdgeInsets.only(top: 150),
                     child: CircularProgressIndicator(
                         valueColor: AlwaysStoppedAnimation<Color>(
                             Colors.white)),

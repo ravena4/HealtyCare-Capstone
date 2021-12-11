@@ -33,9 +33,7 @@ class IngredientsScreen extends StatelessWidget {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                 child: Column(
                   children: [
-                    // recipe image
-                    Padding(
-                      padding: EdgeInsets.all(8),
+                    Align(
                       child: FadeInImage.memoryNetwork(
                         width: 150,
                         height: 100,
