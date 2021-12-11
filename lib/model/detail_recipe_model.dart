@@ -40,6 +40,7 @@ class RecipeModel{
         cuisines: List<String>.from(parsedJson['cuisines'].map((item) => item)),
         dishTypes: List<String>.from(parsedJson['dishTypes'].map((item) => item)),
       );
+      
 }
 
 
@@ -66,5 +67,6 @@ class Steps {
           number: parsedStep['number'],
           step: parsedStep['step']
       );
+
 
 }
