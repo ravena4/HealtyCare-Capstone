@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:healthy_care/screens/foods/launch_screen.dart';
 import 'package:healthy_care/screens/home/input_page.dart';
-import 'package:healthy_care/setting.dart';
+import 'package:healthy_care/screens/setting.dart';
 
 class BottomNavPage extends StatefulWidget {
   @override
@@ -22,7 +22,6 @@ class _BottomNavPageState extends State<BottomNavPage> {
     final _listPage = <Widget>[
       InputPage(),
       LaunchScreen(),
-      Text('Halaman Favorite'),
       SettingScreen(),
     ];
 
@@ -34,10 +33,6 @@ class _BottomNavPageState extends State<BottomNavPage> {
       BottomNavigationBarItem(
         icon: Icon(Icons.fastfood),
         label: 'Foods',
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.favorite),
-        label: 'Favorite',
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.settings),

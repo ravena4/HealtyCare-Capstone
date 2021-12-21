@@ -1,29 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:healthy_care/service/home_page_controller.dart';
+import 'package:healthy_care/screens/history.dart';
 import 'package:healthy_care/util/bottom_button.dart';
-import 'package:healthy_care/util/calculate_brain.dart';
 import 'package:healthy_care/constants.dart';
-import 'package:healthy_care/util/icon_content.dart';
+import 'package:healthy_care/util/gender_container.dart';
 import 'package:healthy_care/util/reusable_card.dart';
-import 'package:healthy_care/util/round_icon_button.dart';
+import 'package:provider/provider.dart';
 import 'result.dart';
 
-enum Gender {
-  male,
-  female,
-}
-
-class InputPage extends StatefulWidget {
-  @override
-  _InputPageState createState() => _InputPageState();
-}
-
-class _InputPageState extends State<InputPage> {
-  Gender selectedGender;
-  int height = 180;
-  int weight = 60;
-  int age = 20;
+class InputPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +19,16 @@ class _InputPageState extends State<InputPage> {
         centerTitle: true,
         title: Text('BMI CALCULATOR'),
         elevation: 8.0,
+        actions: [
+          IconButton(
+            onPressed: () {
+              showDialog(context: context, builder: (context) => History());
+            },
+            icon: Icon(Icons.history),
+          ),
+        ],
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Expanded(
             child: SingleChildScrollView(
@@ -45,13 +39,10 @@ class _InputPageState extends State<InputPage> {
                     child: Row(
                       children: <Widget>[
                         Expanded(
-                          child: BoxContainer(
-                            onPress: () {
-                              setState(() {
-                                selectedGender = Gender.male;
-                              });
-                            },
-                            color: selectedGender == Gender.male
+                          child: Consumer<HomePageController>(
+                          builder: (context, value, child) => GenderContainer(
+                            onPress: () => value.changeGender(),
+                            color: value.isMale
                                 ? kActiveCardColour
                                 : kInactiveCardColour,
                             cardChild: IconContents(
@@ -60,14 +51,12 @@ class _InputPageState extends State<InputPage> {
                             ),
                           ),
                         ),
+                        ),
                         Expanded(
-                          child: BoxContainer(
-                            onPress: () {
-                              setState(() {
-                                selectedGender = Gender.female;
-                              });
-                            },
-                            color: selectedGender == Gender.female
+                          child: Consumer<HomePageController>(
+                          builder: (context, value, child) => GenderContainer(
+                            onPress: () => value.changeGender(),
+                            color: !value.isMale
                                 ? kActiveCardColour
                                 : kInactiveCardColour,
                             cardChild: IconContents(
@@ -75,6 +64,7 @@ class _InputPageState extends State<InputPage> {
                               character: 'FEMALE',
                             ),
                           ),
+                        ),
                         ),
                       ],
                     ),
@@ -94,9 +84,10 @@ class _InputPageState extends State<InputPage> {
                             crossAxisAlignment: CrossAxisAlignment.baseline,
                             textBaseline: TextBaseline.alphabetic,
                             children: <Widget>[
-                              Text(
-                                height.toString(),
-                                style: kNumberTextStyle,
+                              Selector<HomePageController, int>(
+                                selector: (_, provider) => provider.getHeight,
+                                builder: (BuildContext context, value, Widget child) =>
+                                    Text(value.round().toString(), style: kNumberTextStyle),
                               ),
                               Text(
                                 'cm',
@@ -104,26 +95,27 @@ class _InputPageState extends State<InputPage> {
                               )
                             ],
                           ),
-                          SliderTheme(
-                            data: SliderTheme.of(context).copyWith(
-                              inactiveTrackColor: Color(0xFF8D8E98),
-                              activeTrackColor: Colors.white,
-                              thumbColor: Color(0xFFEB1555),
-                              overlayColor: Color(0x29EB1555),
-                              thumbShape:
-                              RoundSliderThumbShape(enabledThumbRadius: 15.0),
-                              overlayShape:
-                              RoundSliderOverlayShape(overlayRadius: 30.0),
-                            ),
-                            child: Slider(
-                              value: height.toDouble(),
-                              min: 120.0,
-                              max: 220.0,
-                              onChanged: (double newValue) {
-                                setState(() {
-                                  height = newValue.round();
-                                });
-                              },
+                          Consumer<HomePageController>(
+                            builder: (BuildContext context, p, _) => SliderTheme(
+                              data: SliderTheme.of(context).copyWith(
+                                inactiveTrackColor: Color(0xFF8D8E98),
+                                activeTrackColor: Colors.white,
+                                thumbColor: Color(0xFFEB1555),
+                                overlayColor: Color(0x29EB1555),
+                                thumbShape:
+                                RoundSliderThumbShape(enabledThumbRadius: 15.0),
+                                overlayShape:
+                                RoundSliderOverlayShape(overlayRadius: 30.0),
+                              ),
+                              child: Slider(
+                                value: p.getHeight.toDouble(),
+                                max: 250.0,
+                                min: 80.0,
+                                activeColor: kBottomContainerColour,
+                                onChanged: (newHeight) {
+                                  p.heightFunction(newHeight.toInt());
+                                },
+                              ),
                             ),
                           ),
                         ],
@@ -143,30 +135,38 @@ class _InputPageState extends State<InputPage> {
                                   'WEIGHT',
                                   style: kLabelTextStyle,
                                 ),
-                                Text(
-                                  weight.toString(),
-                                  style: kNumberTextStyle,
+                                Selector<HomePageController, int>(
+                                  selector: (_, provider) => provider.getWeight,
+                                  builder: (context, value, child) => Text(
+                                    value.toString(),
+                                    style: kNumberTextStyle,
+                                  ),
                                 ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    RoundIconButton(
-                                        icon: FontAwesomeIcons.minus,
-                                        onPressed: () {
-                                          setState(() {
-                                            weight--;
-                                          });
-                                        }),
+                                    Consumer<HomePageController>(
+                                        builder: (context, provider, child) => Container(
+                                          child: FloatingActionButton(
+                                            heroTag: 'decreaseWeight',
+                                            mini: true,
+                                            backgroundColor: Colors.grey,
+                                            onPressed: () => provider.decreaseWeight(),
+                                            child: Icon(FontAwesomeIcons.minus, color: Colors.white),
+                                          ),
+                                        )),
                                     SizedBox(
                                       width: 10.0,
                                     ),
-                                    RoundIconButton(
-                                      icon: FontAwesomeIcons.plus,
-                                      onPressed: () {
-                                        setState(() {
-                                          weight++;
-                                        });
-                                      },
+                                    Consumer<HomePageController>(
+                                      builder: (context, provider, child) =>
+                                          FloatingActionButton(
+                                            heroTag: 'increaseWeight',
+                                            mini: true,
+                                            backgroundColor: Colors.grey,
+                                            onPressed: () => provider.increaseWeight(),
+                                            child: Icon(FontAwesomeIcons.plus, color: Colors.white),
+                                          ),
                                     ),
                                   ],
                                 ),
@@ -184,33 +184,39 @@ class _InputPageState extends State<InputPage> {
                                   'AGE',
                                   style: kLabelTextStyle,
                                 ),
-                                Text(
-                                  age.toString(),
-                                  style: kNumberTextStyle,
+                                Selector<HomePageController, int>(
+                                  selector: (_, provider) => provider.getAge,
+                                  builder: (context, value, child) => Text(
+                                    value.toString(),
+                                    style: kNumberTextStyle,
+                                  ),
                                 ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    RoundIconButton(
-                                      icon: FontAwesomeIcons.minus,
-                                      onPressed: () {
-                                        setState(
-                                              () {
-                                            age--;
-                                          },
-                                        );
-                                      },
-                                    ),
+                                    Consumer<HomePageController>(
+                                        builder: (context, provider, child) => Container(
+                                          child: FloatingActionButton(
+                                            heroTag: 'decreaseAge',
+                                            mini: true,
+                                            backgroundColor: Colors.grey,
+                                            onPressed: () => provider.decreaseAge(),
+                                            child: Icon(FontAwesomeIcons.minus, color: Colors.white),
+                                          ),
+                                        )),
                                     SizedBox(
                                       width: 10.0,
                                     ),
-                                    RoundIconButton(
-                                        icon: FontAwesomeIcons.plus,
-                                        onPressed: () {
-                                          setState(() {
-                                            age++;
-                                          });
-                                        })
+                                    Consumer<HomePageController>(
+                                      builder: (context, provider, child) =>
+                                          FloatingActionButton(
+                                            heroTag: 'increaseAge',
+                                            mini: true,
+                                            backgroundColor: Colors.grey,
+                                            onPressed: () => provider.increaseAge(),
+                                            child: Icon(FontAwesomeIcons.plus, color: Colors.white),
+                                          ),
+                                    ),
                                   ],
                                 )
                               ],
@@ -223,17 +229,10 @@ class _InputPageState extends State<InputPage> {
                   BottomButton(
                     buttonTitle: 'CALCULATE',
                     onTap: () {
-                      CalculatorBrain calc =
-                      CalculatorBrain(height: height, weight: weight);
-
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ResultsPage(
-                            bmiResult: calc.calculateBMI(),
-                            resultText: calc.getResult(),
-                            interpretation: calc.getInterpretation(),
-                          ),
+                          builder: (context) => ResultsPage(),
                         ),
                       );
                     },
