@@ -6,16 +6,4 @@ Nama Anggota:
 1. Ravena - P299V4306
 2. Wanda Afrilia Ayu - P354V4387
 
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-
+HealtyCare is an application that helps people to know their nutritional status (BMI) based on their weight and height. In addition, this healthy care application will inform users about the conditions and risks that exist in the user, and also give good recommendations for users to do so that they can change their lifestyle to be healthier.
